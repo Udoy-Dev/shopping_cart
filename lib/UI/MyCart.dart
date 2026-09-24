@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_cart/CartDesign/MyItemCart.dart';
+import 'package:shopping_cart/UI/CartSummaryScreen.dart';
 
 import '../Models/Model.dart';
+import '../Style/Style.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({super.key});
@@ -57,82 +59,7 @@ class _MyCartState extends State<MyCart> {
     );
   }
 
-  void deleteCartAlert(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                Icons.delete_outline_rounded,
-                color: Color(0xFFFF4D4D),
-                size: 80,
-              ),
-              SizedBox(height: 10),
-              Text(
-                "Clear Cart",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10),
-              Text("Are you sure you want to delete all items?"),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  context.read<ProductModel>().clearCart();
-                  Navigator.pop(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFFF4D4D),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  minimumSize: Size(double.infinity, 45),
-                ),
-                child: Text(
-                  "Clear",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: BorderSide(color: Colors.grey[700]!),
-                  ),
-                  minimumSize: Size(double.infinity, 45),
-                ),
-                child: Text(
-                  "Cancel",
-                  style: TextStyle(color: Colors.grey[700]),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -440,7 +367,9 @@ class _MyCartState extends State<MyCart> {
                                 ),
                                 SizedBox(height: 10),
                                 InkWell(
-                                  onTap: (){},
+                                  onTap: (){
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>CartSummaryScreen()));
+                                  },
                                   child: Container(
                                     width: double.infinity,
                                     height: 52,
