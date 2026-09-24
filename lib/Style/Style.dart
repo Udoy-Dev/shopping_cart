@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../Models/Model.dart';
 import '../UI/MyCart.dart';
 
 void showAlertDialogAdd(BuildContext context, String title) {
@@ -43,23 +45,83 @@ void showAlertDialogAdd(BuildContext context, String title) {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Colors.white),
               )
             ),
+
+          ],
+        ),
+      );
+    },
+  );
+}
+
+void deleteCartAlert(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.delete_outline_rounded,
+              color: Color(0xFFFF4D4D),
+              size: 80,
+            ),
+            SizedBox(height: 10),
+            Text(
+              "Clear Cart",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text("Are you sure you want to delete all items?"),
             SizedBox(height: 10),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey[200],
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  minimumSize: Size(double.infinity, 45),
+              onPressed: () {
+                context.read<ProductModel>().clearCart();
+                Navigator.pop(context);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFFF4D4D),
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                child: Text(
-                  "Product List",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Colors.black),
-                )
+                minimumSize: Size(double.infinity, 45),
+              ),
+              child: Text(
+                "Clear",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(color: Colors.grey[700]!),
+                ),
+                minimumSize: Size(double.infinity, 45),
+              ),
+              child: Text(
+                "Cancel",
+                style: TextStyle(color: Colors.grey[700]),
+              ),
             ),
           ],
         ),

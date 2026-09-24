@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_cart/UI/MyCart.dart';
+
+import '../Models/Model.dart';
+import '../Style/Style.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> product;
@@ -33,6 +38,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 icon: const Icon(Icons.shopping_cart_outlined, color: Color(0xFF1E2843), size: 26),
                 onPressed: () {
                   // Navigate to Cart Screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  MyCart()),
+                  );
                 },
               ),
               Positioned(
@@ -81,7 +90,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
 
                   // Title
                   Text(
@@ -92,7 +101,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       color: Color(0xFF1E2843),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8),
 
                   // Price
                   Text(
@@ -103,7 +112,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       color: Color(0xFF2563EB),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
 
                   // Rating Badge
                   Container(
@@ -136,7 +145,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
 
                   // Description
                   Text(
@@ -148,7 +157,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       height: 1.5,
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24),
 
                   // Quantity Row
                   Row(
@@ -218,7 +227,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                 ],
               ),
             ),
@@ -233,6 +242,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   // Add to Cart Logic
+                  showAlertDialogAdd(context,widget.product['title']);
+                  Provider.of<ProductModel>(context, listen: false).addToCart(
+                      {
+                        "imageUrl": widget.product['imageUrl'],
+                        "title": widget.product['title'],
+                        "subtitle": widget.product['subtitle'],
+                        "price": widget.product['price'],
+                      }
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF0066FF),

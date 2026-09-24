@@ -5,6 +5,7 @@ import 'package:shopping_cart/Models/Model.dart';
 
 import '../Style/Style.dart';
 import 'MyCart.dart';
+import 'ProductDetailsScreen.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key});
@@ -65,22 +66,27 @@ class _ProductListState extends State<ProductList> {
                     final title = productModel.products[index]["title"]!;
                     final subtitle = productModel.products[index]["subtitle"]!;
                     final price = productModel.products[index]["price"]!;
-                    return ProductCardUI(
-                      imageUrl: imageUrl,
-                      title: title,
-                      subtitle: subtitle,
-                      price: price,
-                      onTap: () {
-                        showAlertDialogAdd(context,title);
-                        Provider.of<ProductModel>(context, listen: false).addToCart(
-                          {
-                            "imageUrl": imageUrl,
-                            "title": title,
-                            "subtitle": subtitle,
-                            "price": price,
-                          }
-                        );
+                    return InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProductDetailsScreen(product: productModel.products[index],)));
                       },
+                      child: ProductCardUI(
+                        imageUrl: imageUrl,
+                        title: title,
+                        subtitle: subtitle,
+                        price: price,
+                        onTap: () {
+                          showAlertDialogAdd(context,title);
+                          Provider.of<ProductModel>(context, listen: false).addToCart(
+                            {
+                              "imageUrl": imageUrl,
+                              "title": title,
+                              "subtitle": subtitle,
+                              "price": price,
+                            }
+                          );
+                        },
+                      ),
                     );
                   },
                 );
